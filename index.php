@@ -1,5 +1,5 @@
 <?php
-
+$message = "hello, world";
 
 ?>
 
@@ -12,6 +12,6 @@
     <title>php weather</title>
 </head>
 <body>
-    
+    <p><?php echo $message; ?></p>
 </body>
 </html>
