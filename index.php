@@ -10,9 +10,15 @@
                 $country . '&appid=' . $api_key;
 
         $json = file_get_contents($api_url);
+
         $weather_array = json_decode($json, true);
 
         $temp = $weather_array["main"];
+
+        $success = false;
+        if (!empty($json)) {
+            $success = true;
+        }
                 
         // api.openweathermap.org/data/2.5/weather?zip=57783,us&appid=078f24647204e62bf274992bc5bf8e43
         // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
@@ -81,7 +87,8 @@
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
     <p>Temperature: <?php echo $weather_array; ?></p>
-    <p>URL: <?php echo $url; ?></p>
+    <p>URL: <?php echo $api_url; ?></p>
     <p>JSON: <?php echo $json; ?></p>
+    <p>Success: <?php echo $success; ?></p>
 </body>
 </html>
