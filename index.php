@@ -12,7 +12,7 @@
         $json = file_get_contents($url);
         $weather_array = json_decode($json, true);
 
-        $temp = $weather_array["temp"];
+        $temp = $weather_array["main"];
                 
         // api.openweathermap.org/data/2.5/weather?zip=57783,us&appid=078f24647204e62bf274992bc5bf8e43
         // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
