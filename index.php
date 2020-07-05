@@ -4,6 +4,7 @@
 
 
         $api_key = '078f24647204e62bf274992bc5bf8e43';
+        
         $url = 'api.openweathermap.org/data/2.5/weather' .
                 '?zip=' . $zip . ',' .
                 $country . '&appid=' . $api_key;
@@ -13,6 +14,7 @@
 
         $temp = $weather_array["main"]["temp"];
                 
+        // api.openweathermap.org/data/2.5/weather?zip=57783,us&appid=078f24647204e62bf274992bc5bf8e43
         // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
 
         // // create & initialize a curl session
@@ -79,5 +81,6 @@
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
     <p>Temperature: <?php echo $temp; ?></p>
+    <p>URL: <?php echo $url; ?></p>
 </body>
 </html>
