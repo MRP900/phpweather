@@ -10,6 +10,8 @@
 
         $json = file_get_contents($url);
         $weather_array = json_decode($json, true);
+
+        $temp = $weather_array["main"]["temp"];
                 
         // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
 
@@ -75,6 +77,7 @@
     <title>php weather</title>
 </head>
 <body>
-    <p><?php echo $weather_array; ?></p>
+    <p>Zip Code: <?php echo $zip; ?></p>
+    <p>Temperature: <?php echo $temp; ?></p>
 </body>
 </html>
