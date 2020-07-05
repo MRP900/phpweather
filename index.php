@@ -5,11 +5,11 @@
 
         $api_key = '078f24647204e62bf274992bc5bf8e43';
 
-        $url = 'api.openweathermap.org/data/2.5/weather' .
+        $api_url = 'api.openweathermap.org/data/2.5/weather' .
                 '?zip=' . $zip . ',' .
                 $country . '&appid=' . $api_key;
 
-        $json = file_get_contents($url);
+        $json = file_get_contents($api_url);
         $weather_array = json_decode($json, true);
 
         $temp = $weather_array["main"];
@@ -82,5 +82,6 @@
     <p>Zip Code: <?php echo $zip; ?></p>
     <p>Temperature: <?php echo $weather_array; ?></p>
     <p>URL: <?php echo $url; ?></p>
+    <p>JSON: <?php echo $json; ?></p>
 </body>
 </html>
