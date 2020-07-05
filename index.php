@@ -16,12 +16,16 @@
         $temp = $weather_array["main"];
 
         $success = "Empty";
-        if (!empty($json)) {
+        if (!empty($weather_array)) {
             $success = "Not Empty";
         }
-                
-        // api.openweathermap.org/data/2.5/weather?zip=57783,us&appid=078f24647204e62bf274992bc5bf8e43
-        // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
+
+                // api.openweathermap.org/data/2.5/weather?zip=57783,us&appid=078f24647204e62bf274992bc5bf8e43
+                // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
+
+                // $ch = curl_init('http://api.bitly.com/v3/shorten?login=user&apiKey=key&longUrl=url');
+                // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                // $result = curl_exec($ch);
 
         // // create & initialize a curl session
         // $curl = curl_init();
