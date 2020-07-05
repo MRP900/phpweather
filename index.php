@@ -53,7 +53,7 @@
 //     }
 //     curl_close($curl);
 //     return $result;
-}
+// }
 ?>
 
 
@@ -65,6 +65,6 @@
     <title>php weather</title>
 </head>
 <body>
-    <p><?php echo 'Hello, world'; ?></p>
+    <p><?php echo "Hello, world"; ?></p>
 </body>
 </html>
