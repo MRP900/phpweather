@@ -80,7 +80,7 @@
 </head>
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
-    <p>Temperature: <?php echo $temp; ?></p>
+    <p>Temperature: <?php echo $weather_array; ?></p>
     <p>URL: <?php echo $url; ?></p>
 </body>
 </html>
