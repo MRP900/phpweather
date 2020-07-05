@@ -1,6 +1,16 @@
 <?php
+        $zip = 57783;
+        $country = 'us';
 
-        // $api_key = 078f24647204e62bf274992bc5bf8e43;
+
+        $api_key = '078f24647204e62bf274992bc5bf8e43';
+        $url = 'api.openweathermap.org/data/2.5/weather' .
+                '?zip=' . $zip . ',' .
+                $country . '&appid=' . $api_key;
+
+        $json = file_get_contents($url);
+        $array = json_decode($json, true);
+                
         // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
 
         // // create & initialize a curl session
@@ -65,6 +75,6 @@
     <title>php weather</title>
 </head>
 <body>
-    <p><?php echo "Hello, world"; ?></p>
+    <p><?php echo $json; ?></p>
 </body>
 </html>
