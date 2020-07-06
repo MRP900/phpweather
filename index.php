@@ -26,7 +26,9 @@
         // 3 Execute the request and fetch the response, check for errors
         $output = curl_exec($ch);
 
-        $error = "";
+        $temperature = $output["main"]["temp"];
+
+        $error = null;
         if ($output === FALSE) {
                 $error = curl_error($ch);
         }
@@ -111,7 +113,7 @@
 </head>
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
-    <p>Temperature: <?php echo $weather_array; ?></p>
+    <p>Temperature: <?php echo $temperature; ?></p>
     <p>URL: <?php echo $api_url; ?></p>
     <p><?php echo $output; ?></p>
     <p>Error: <?php echo $error; ?></p>
