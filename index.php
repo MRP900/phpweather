@@ -28,7 +28,7 @@
 
         $obj = json_decode($output);
 
-        $temperature = $obj["temp"];
+        
 
         $error = null;
         if ($output === FALSE) {
@@ -115,7 +115,7 @@
 </head>
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
-    <p>Temperature: <?php echo $temperature; ?></p>
+    <p>Temperature: <?php echo '$temperature'; ?></p>
     <p>URL: <?php echo $api_url; ?></p>
     <p><?php echo $output; ?></p>
     
