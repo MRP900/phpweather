@@ -9,16 +9,32 @@
                 '?zip=' . $zip . ',' .
                 $country . '&appid=' . $api_key;
 
-        $json = file_get_contents($api_url);
+        // Initialize cURL
+        $ch = curl_init();
 
-        $weather_array = json_decode($json, true);
+        // Set Options
 
-        $temp = $weather_array["main"];
+        // URL Request
+        curl_setopt($ch, CURLOPT_URL, $api_url);
 
-        $success = "Empty";
-        if (!empty($weather_array)) {
-            $success = "Not Empty";
+        // Return instead of outputting directly
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        // Whether to include the header in the output. Set to false here
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        // 3 Execute the request and fetch the response, check for errors
+        $output = curl_exec($ch);
+
+        $error = "";
+        if ($output === FALSE) {
+                $error = curl_error($ch);
         }
+
+        // 4. Close and free up the curl handle
+        curl_close($ch);
+
+
 
                 // api.openweathermap.org/data/2.5/weather?zip=57783,us&appid=078f24647204e62bf274992bc5bf8e43
                 // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
@@ -26,6 +42,11 @@
                 // $ch = curl_init('http://api.bitly.com/v3/shorten?login=user&apiKey=key&longUrl=url');
                 // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 // $result = curl_exec($ch);
+
+                // $ch = curl_init();
+                // curl_setopt($ch, CURLOPT_URL, $url);
+                // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                // $body = curl_exec($ch);
 
         // // create & initialize a curl session
         // $curl = curl_init();
@@ -92,7 +113,7 @@
     <p>Zip Code: <?php echo $zip; ?></p>
     <p>Temperature: <?php echo $weather_array; ?></p>
     <p>URL: <?php echo $api_url; ?></p>
-    <p>JSON: <?php echo $json; ?></p>
-    <p>Success: <?php echo $success; ?></p>
+    <p><?php echo $output; ?></p>
+    <p>Error: <?php echo $error; ?></p>
 </body>
 </html>
