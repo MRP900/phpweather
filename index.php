@@ -3,7 +3,7 @@
         $country = 'us';
 
 
-        $api_key = 
+        $api_key = "";
 
         $api_url = 'api.openweathermap.org/data/2.5/weather' .
                 '?zip=' . $zip . ',' .
