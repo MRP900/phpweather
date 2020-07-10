@@ -26,7 +26,7 @@
         // 3 Execute the request and fetch the response, check for errors
         $output = curl_exec($ch);
 
-        $weather_array = json_decode($output, true);
+        $weather_array = json_decode($output, TRUE, 512, 0);
 
         $temperature = $weather_array["temp"];
 
