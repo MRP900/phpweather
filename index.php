@@ -3,11 +3,11 @@
         $country = 'us';
 
 
-        $api_key = "";
+        $api = $_ENV["api_key"];
 
         $api_url = 'api.openweathermap.org/data/2.5/weather' .
                 '?zip=' . $zip . ',' .
-                $country . '&appid=' . $api_key;
+                $country . '&appid=' . $api;
 
         // Initialize cURL
         $ch = curl_init();
