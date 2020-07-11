@@ -60,7 +60,7 @@
     <p><?php echo $output; ?></p>
     <p><?php echo $weather_array; ?></p>
 <?php
-echo $weather;
+print_r($weather);
 ?>
 </body>
 </html>
