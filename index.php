@@ -29,7 +29,8 @@
         $weather = json_decode($output, true);
         // 4. Close and free up the curl handle
         curl_close($ch);
-        $temp = $weather["main"]["temp"];
+        $temp_k = $weather["main"]["temp"];
+        $temp_f = ($temp_k - 273.15) * 9/5 + 32;
 
                 
                 // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
@@ -49,8 +50,8 @@
 </head>
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
-    <p>Temperature: <?php echo $temp; ?></p>
-    <p>Temperature: <?php print_r($temp); ?></p>
+    <p>Temperature: <?php echo $temp_f; ?></p>
+    <!-- <p>Temperature: <?php print_r($temp); ?></p> -->
     <!-- <p>URL: <?php echo $api_url; ?></p> -->
     <p><?php echo $output; ?></p>
     
