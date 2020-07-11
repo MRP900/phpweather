@@ -37,7 +37,7 @@
 
 
 
-                // api.openweathermap.org/data/2.5/weather?zip=57783,us&appid=078f24647204e62bf274992bc5bf8e43
+                
                 // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
 
                
@@ -59,6 +59,8 @@
     <!-- <p>URL: <?php echo $api_url; ?></p> -->
     <p><?php echo $output; ?></p>
     <p><?php echo $weather_array; ?></p>
-    
+<?php
+echo $weather;
+?>
 </body>
 </html>
