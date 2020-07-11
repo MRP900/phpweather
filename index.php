@@ -29,13 +29,7 @@
         $weather = json_decode($output, true);
         // 4. Close and free up the curl handle
         curl_close($ch);
-        $temperature = $weather["temp"];
-
-
-        
-        
-
-
+        $temp = $weather["weather"];
 
                 
                 // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
@@ -55,7 +49,8 @@
 </head>
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
-    <p>Temperature: <?php echo $temperature; ?></p>
+    <p>Temperature: <?php echo $temp; ?></p>
+    <p>Temperature: <?php print_r($temp); ?></p>
     <!-- <p>URL: <?php echo $api_url; ?></p> -->
     <p><?php echo $output; ?></p>
     
