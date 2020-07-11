@@ -58,9 +58,13 @@
     <p>Temperature: <?php echo $temperature; ?></p>
     <!-- <p>URL: <?php echo $api_url; ?></p> -->
     <p><?php echo $output; ?></p>
-    <p><?php echo $weather_array; ?></p>
+    
 <?php
 print_r($weather);
+
+foreach($weather as $key=>$value){
+   echo $key . ": " . $value;     
+}
 ?>
 </body>
 </html>
