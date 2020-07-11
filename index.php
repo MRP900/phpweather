@@ -29,7 +29,7 @@
         $weather = json_decode($output, true);
         // 4. Close and free up the curl handle
         curl_close($ch);
-        $temperature = $weather["coord"];
+        $temperature = $weather["temp"];
 
 
         
