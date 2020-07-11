@@ -26,17 +26,14 @@
         // 3 Execute the request and fetch the response, check for errors
         $output = curl_exec($ch);
 
-        $weather = json_decode($output, TRUE);
-
-        $temperature = $weather["temp"];
-
-        $error = null;
-        if ($output === FALSE) {
-                $error = curl_error($ch);
-        }
-
+        $weather = json_decode($output, true);
         // 4. Close and free up the curl handle
         curl_close($ch);
+        $temperature = $weather['temp'];
+
+
+        
+        
 
 
 
@@ -58,7 +55,7 @@
 </head>
 <body>
     <p>Zip Code: <?php echo $zip; ?></p>
-    <p>Temperature: <?php echo $weather["temp"]; ?></p>
+    <p>Temperature: <?php echo $temperature; ?></p>
     <!-- <p>URL: <?php echo $api_url; ?></p> -->
     <p><?php echo $output; ?></p>
     <p><?php echo $weather_array; ?></p>
