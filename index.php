@@ -29,7 +29,7 @@
         $weather = json_decode($output, true);
         // 4. Close and free up the curl handle
         curl_close($ch);
-        $temperature = $weather['temp'];
+        $temperature = $weather["coord"];
 
 
         
@@ -59,12 +59,5 @@
     <!-- <p>URL: <?php echo $api_url; ?></p> -->
     <p><?php echo $output; ?></p>
     
-<?php
-print_r($weather);
-
-foreach($weather as $key=>$value){
-   echo $key . ": " . $value;     
-}
-?>
 </body>
 </html>
