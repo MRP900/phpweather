@@ -14,3 +14,7 @@ td, th {
 .btn {
     margin: 2em 1em 2em 0;
 }
+
+#title {
+    margin-top: 2em;
+}

@@ -1,7 +1,7 @@
 <?php
 // Default location data
 if (!isset($zip)) {
-	$zip = "";
+	$zip = null;
 }
 $country = 'us';
 
@@ -70,9 +70,9 @@ $wind = $weather["wind"]["speed"];
 <body>
 	<div class="container">
 		<div class="col-lg mx-auto text-center">
-			<h2>The Weather</h2>
+			<h2 id="title">The Weather</h2>
 			<form class="form-group align-content-center" action="." method="post">
-				<label>Enter Zip Code:</label>
+				<label>Enter Zip Code:</label><br>
 				<input type="text" name="zip">
 
 				<div class="form-group">
@@ -81,7 +81,7 @@ $wind = $weather["wind"]["speed"];
 			</form>
 
 			<?php
-			if (!empty($_POST)) {
+			if (!empty($_POST) && (!empty($zip))) {
 				echo '<h3>Displaying Weather for Zip Code: ' . $zip . '</h3>';
 				echo '<p>Town: ' . $town . '</p>';
 				echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
