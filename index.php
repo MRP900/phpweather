@@ -63,6 +63,13 @@ $wind = $weather["wind"]["speed"];
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>php weather</title>
+
+	<script>
+		window.onload = () => {
+			document.getElementById('input-zip').focus().select();
+		}
+	</script>
+
 	<link rel="stylesheet" href="styles/bootstrap.min.css">
 	<link rel="stylesheet" href="styles/styles.css">
 </head>
@@ -73,7 +80,7 @@ $wind = $weather["wind"]["speed"];
 			<h2 id="title">The Weather</h2>
 			<form class="form-group align-content-center" action="." method="post">
 				<label>Enter Zip Code:</label><br>
-				<input type="text" name="zip">
+				<input id="input-zip" type="text" name="zip">
 
 				<div class="form-group">
 					<input type="submit" value="Display Weather" class="btn btn-outline-dark">
