@@ -14,40 +14,38 @@ if (isset($_POST['action'])) {
     $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 } 
 
-if ($action == 'display-weather') {
-    $zip = filter_input(INPUT_POST, 'zip', FILTER_VALIDATE_INT);
 
-    // Build API url
-    $api = $_ENV["api_key"];
-    $api_url = 'api.openweathermap.org/data/2.5/weather' .
-               '?zip=' . $zip . ',' .
-                $country . '&appid=' . $api;
+// Build API url
+$api = $_ENV["api_key"];
+$api_url = 'api.openweathermap.org/data/2.5/weather' .
+        '?zip=' . $zip . ',' .
+        $country . '&appid=' . $api;
 
-    // Initialize cURL
-    $ch = curl_init();
+// Initialize cURL
+$ch = curl_init();
 
-    // Set Options
-    // URL Request
-    curl_setopt($ch, CURLOPT_URL, $api_url);
+// Set Options
+// URL Request
+curl_setopt($ch, CURLOPT_URL, $api_url);
 
-    // Return instead of outputting directly
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// Return instead of outputting directly
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-    // Whether to include the header in the output. Set to false here
-    curl_setopt($ch, CURLOPT_HEADER, 0);
+// Whether to include the header in the output. Set to false here
+curl_setopt($ch, CURLOPT_HEADER, 0);
 
-    // 3 Execute the request and fetch the response, check for errors
-    $output = curl_exec($ch);
+// 3 Execute the request and fetch the response, check for errors
+$output = curl_exec($ch);
 
-    $weather = json_decode($output, true);
-    // 4. Close and free up the curl handle
-    curl_close($ch);
+$weather = json_decode($output, true);
+// 4. Close and free up the curl handle
+curl_close($ch);
 
-    // Get values from JSON string, convert kelvin to Fahrenheit
-    $temp_k = $weather["main"]["temp"];
-    $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
+// Get values from JSON string, convert kelvin to Fahrenheit
+$temp_k = $weather["main"]["temp"];
+$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 
-}
+
 
 
 ?>
@@ -68,19 +66,18 @@ if ($action == 'display-weather') {
 
 <form action="." method="post">
 <label>Enter Zip Code:</label>
-<input type="text" name="zip" placeholder="57783">
+<input type="text" name="zip">
 
 <div class="form-group">
 <input type="hidden" name="action" value="display-weather">
 <input type="submit" value="Display Weather" class="btn btn-outline-dark">
-<a href="." class="btn btn-outline-dark">Cancel</a>
 </div>
 </form>
 
 <div id="output-div">
 <h3>Displaying weather for Zip Code: <?php echo $zip ?></h3>
 <p>Temperature: <?php echo $temp_f; ?> &#8457;</p>
-<p type="hidden"><?php echo $output; ?></p>
+<p><?php echo $output; ?></p>
 </div>
 
 </body>
