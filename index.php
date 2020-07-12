@@ -1,24 +1,26 @@
 <?php
 // Default location data
-if (!isset($zip)) {$zip = "";} 
+if (!isset($zip)) {
+	$zip = "";
+}
 $country = 'us';
 
 // Check for POST
 if (!empty($_POST)) {
-    $_POST = array_map('trim', $_POST);
+	$_POST = array_map('trim', $_POST);
 }
 
 // POST: Sanitize, set action
 if (isset($_POST)) {
-    $zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
-} 
+	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
+}
 
 
 // Build API url
 $api = $_ENV["api_key"];
 $api_url = 'api.openweathermap.org/data/2.5/weather' .
-		   '?zip=' . $zip . ',' .
-		    $country . '&appid=' . $api;
+	'?zip=' . $zip . ',' .
+	$country . '&appid=' . $api;
 
 // Initialize cURL
 $ch = curl_init();
@@ -44,6 +46,12 @@ curl_close($ch);
 $temp_k = $weather["main"]["temp"];
 $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 
+// Town
+$town = $weather["name"];
+// Humidity
+$humidity = $weather["main"]["humidity"];
+// Wind
+$wind = $weather["wind"]["speed"];
 
 ?>
 
@@ -60,23 +68,28 @@ $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 </head>
 
 <body>
-<div class="container">
-	<form class="form-group align-content-center" action="." method="post">
-		<label>Enter Zip Code:</label>
-		<input type="text" name="zip">
+	<div class="container">
+		<div class="col-lg mx-auto text-center">
+			<form class="form-group align-content-center" action="." method="post">
+				<label>Enter Zip Code:</label>
+				<input type="text" name="zip">
 
-		<div class="form-group">
-			<input type="submit" value="Display Weather" class="btn btn-outline-dark">
+				<div class="form-group">
+					<input type="submit" value="Display Weather" class="btn btn-outline-dark">
+				</div>
+			</form>
+
+			<?php
+			if (!empty($_POST)) {
+				echo '<h3>Displaying Weather for Zip Code: ' . $zip . '</h3>';
+				echo '<p>Town: ' . $town . '</p>';
+				echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
+				echo '<p>Humidity: ' . $humidity . '</p>';
+				echo '<p>Wind: ' . $temp_f . '</p>';
+			}
+			?>
 		</div>
-	</form>
-
-<?php
-	if(!empty($_POST)) {
-		echo '<h3>Displaying Weather for Zip Code: ' . $zip . '</h3>';
-		echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
-	}
-?>
-</div>
+	</div>
 </body>
 
 </html>
