@@ -1,7 +1,6 @@
 <?php
-
 // Default location data
-$zip = "";
+if (!isset($zip)) {$zip = "";} 
 $country = 'us';
 
 // Check for POST
@@ -56,8 +55,8 @@ $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>php weather</title>
-	<link rel="stylesheet" href="style/bootstrap.min.css">
-	<link rel="stylesheet" href="style/styles.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
@@ -73,9 +72,11 @@ $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 	</form>
 
 	<div id="output-div">
+		<?php if (isset($_POST)) { ?>
 		<h3>Displaying weather for Zip Code: <?php echo $zip ?></h3>
 		<p>Temperature: <?php echo $temp_f; ?> &#8457;</p>
 		<p><?php echo $output; ?></p>
+		<?php } ?>
 	</div>
 
 </body>
