@@ -70,6 +70,7 @@ $wind = $weather["wind"]["speed"];
 <body>
 	<div class="container">
 		<div class="col-lg mx-auto text-center">
+			<h2>The Weather</h2>
 			<form class="form-group align-content-center" action="." method="post">
 				<label>Enter Zip Code:</label>
 				<input type="text" name="zip">
@@ -85,7 +86,8 @@ $wind = $weather["wind"]["speed"];
 				echo '<p>Town: ' . $town . '</p>';
 				echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
 				echo '<p>Humidity: ' . $humidity . '</p>';
-				echo '<p>Wind: ' . $temp_f . '</p>';
+				echo '<p>Wind: ' . $wind . '</p>';
+				echo '<p>' . $output . '</p>';
 			}
 			?>
 		</div>
