@@ -1,7 +1,7 @@
 <?php
 
 // Default location data
-$zip = 57783;
+$zip = "";
 $country = 'us';
 
 // Check for POST
@@ -10,8 +10,8 @@ if (!empty($_POST)) {
 }
 
 // POST: Sanitize, set action
-if (isset($_POST['action'])) {
-    $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+if (isset($_POST)) {
+    $zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 } 
 
 
@@ -69,7 +69,7 @@ $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 <input type="text" name="zip">
 
 <div class="form-group">
-<input type="hidden" name="action" value="display-weather">
+<!-- <input type="hidden" name="action" value="display-weather"> -->
 <input type="submit" value="Display Weather" class="btn btn-outline-dark">
 </div>
 </form>
