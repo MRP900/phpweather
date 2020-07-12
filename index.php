@@ -1,41 +1,53 @@
 <?php
+
+// Default location data
 $zip = 57783;
 $country = 'us';
 
+// Check for POST
+if (!empty($_POST)) {
+    $_POST = array_map('trim', $_POST);
+}
 
-$api = $_ENV["api_key"];
+// POST: Sanitize, set action
+if (isset($_POST['action'])) {
+    $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+} 
 
-$api_url = 'api.openweathermap.org/data/2.5/weather' .
-        '?zip=' . $zip . ',' .
-        $country . '&appid=' . $api;
+if ($action == 'display-weather') {
+    $zip = filter_input(INPUT_POST, 'zip', FILTER_VALIDATE_INT);
 
-// Initialize cURL
-$ch = curl_init();
+    // Build API url
+    $api = $_ENV["api_key"];
+    $api_url = 'api.openweathermap.org/data/2.5/weather' .
+               '?zip=' . $zip . ',' .
+                $country . '&appid=' . $api;
 
-// Set Options
+    // Initialize cURL
+    $ch = curl_init();
 
-// URL Request
-curl_setopt($ch, CURLOPT_URL, $api_url);
+    // Set Options
+    // URL Request
+    curl_setopt($ch, CURLOPT_URL, $api_url);
 
-// Return instead of outputting directly
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    // Return instead of outputting directly
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-// Whether to include the header in the output. Set to false here
-curl_setopt($ch, CURLOPT_HEADER, 0);
+    // Whether to include the header in the output. Set to false here
+    curl_setopt($ch, CURLOPT_HEADER, 0);
 
-// 3 Execute the request and fetch the response, check for errors
-$output = curl_exec($ch);
+    // 3 Execute the request and fetch the response, check for errors
+    $output = curl_exec($ch);
 
-$weather = json_decode($output, true);
-// 4. Close and free up the curl handle
-curl_close($ch);
-$temp_k = $weather["main"]["temp"];
-$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
+    $weather = json_decode($output, true);
+    // 4. Close and free up the curl handle
+    curl_close($ch);
 
+    // Get values from JSON string, convert kelvin to Fahrenheit
+    $temp_k = $weather["main"]["temp"];
+    $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 
-// api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
-
-
+}
 
 
 ?>
@@ -48,14 +60,28 @@ $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>php weather</title>
+        <link rel="stylesheet" href="style/bootstrap.min.css">
+        <link rel="stylesheet" href="style/styles.css">
 </head>
 
 <body>
-        <p>Zip Code: <?php echo $zip; ?></p>
-        <p>Temperature: <?php echo $temp_f; ?> &#8457;</p>
-        <!-- <p>Temperature: <?php print_r($temp); ?></p> -->
-        <!-- <p>URL: <?php echo $api_url; ?></p> -->
-        <p><?php echo $output; ?></p>
+
+<form action="." method="post">
+<label>Enter Zip Code:</label>
+<input type="text" name="zip" placeholder="57783">
+
+<div class="form-group">
+<input type="hidden" name="action" value="display-weather">
+<input type="submit" value="Display Weather" class="btn btn-outline-dark">
+<a href="." class="btn btn-outline-dark">Cancel</a>
+</div>
+</form>
+
+<div id="output-div">
+<h3>Displaying weather for Zip Code: <?php echo $zip ?></h3>
+<p>Temperature: <?php echo $temp_f; ?> &#8457;</p>
+<p type="hidden"><?php echo $output; ?></p>
+</div>
 
 </body>
 
