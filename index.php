@@ -95,6 +95,8 @@ $wind = $weather["wind"]["speed"];
 				echo '<p>Humidity: ' . $humidity . '</p>';
 				echo '<p>Wind: ' . $wind . '</p>';
 				echo '<p>' . $output . '</p>';
+			} elseif ($zip == null) {
+				echo '<p class="alert-danger">' . 'Please Enter a zip code' . '</p>';
 			}
 			?>
 		</div>
