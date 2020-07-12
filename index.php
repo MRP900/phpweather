@@ -77,10 +77,10 @@ $wind = $weather["wind"]["speed"];
 <body>
 	<div class="container">
 		<div class="col-lg mx-auto text-center">
-			<h2 id="title">The Weather</h2>
+			<h2 id="title">Weather Lookup</h2>
 			<form class="form-group align-content-center" action="." method="post">
-				<label>Enter Zip Code:</label><br>
-				<input id="input-zip" type="text" name="zip">
+				
+				<input id="input-zip" type="text" name="zip" placeholder="Enter a Zip Code">
 
 				<div class="form-group">
 					<input type="submit" value="Display Weather" class="btn btn-outline-dark">
@@ -94,9 +94,7 @@ $wind = $weather["wind"]["speed"];
 				echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
 				echo '<p>Humidity: ' . $humidity . '</p>';
 				echo '<p>Wind: ' . $wind . '</p>';
-				echo '<p>' . $output . '</p>';
-			} elseif ($zip == null) {
-				echo '<p class="alert-danger">' . 'Please Enter a zip code' . '</p>';
+				// echo '<p>' . $output . '</p>';
 			}
 			?>
 		</div>
