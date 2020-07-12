@@ -60,24 +60,23 @@ $temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 </head>
 
 <body>
-
+<div class="container">
 	<form action="." method="post">
 		<label>Enter Zip Code:</label>
 		<input type="text" name="zip">
 
 		<div class="form-group">
-			<!-- <input type="hidden" name="action" value="display-weather"> -->
 			<input type="submit" value="Display Weather" class="btn btn-outline-dark">
 		</div>
 	</form>
+</div>
 
-	<div id="output-div">
-		<?php if (isset($_POST)) { ?>
-		<h3>Displaying weather for Zip Code: <?php echo $zip ?></h3>
-		<p>Temperature: <?php echo $temp_f; ?> &#8457;</p>
-		<p><?php echo $output; ?></p>
-		<?php } ?>
-	</div>
+<?php
+	if(isset($_POST)) {
+		echo '<h3>Displaying Weather for Zip Code:' . $zip . '</h3>';
+		echo '<p>Temperature' . $temp_f . '</p>';
+	}
+?>
 
 </body>
 
