@@ -62,6 +62,8 @@ if (isset($_POST)) {
 		}
 		
 	}
+} else {
+	$error = null;
 }
 
 ?>
