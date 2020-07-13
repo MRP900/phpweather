@@ -17,7 +17,7 @@ if (!empty($_POST)) {
 if (isset($_POST)) {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 
-	if (strlen($zip != 5)) {
+	if ((strlen($zip) != 5)) {
 		$error = "Error: Invalid Zip Code";
 	} else {
 		// Build API url
@@ -64,10 +64,7 @@ if (isset($_POST)) {
 	}
 }
 
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,8 +106,11 @@ if (isset($_POST)) {
 				echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
 				echo '<p>Humidity: ' . $humidity . '</p>';
 				echo '<p>Wind: ' . $wind . '</p>';
-				// echo '<p>' . $output . '</p>';
+				echo '<p>' . $output . '</p>';
 			}
+			// else {
+			// 	echo '<p class="alert-danger">' . 'Unknown Error' . '</p>';
+			// }
 			?>
 		</div>
 	</div>
