@@ -8,13 +8,13 @@ $country = 'us';
 // Array to hold errors
 $error = null;
 
-// Check for POST
-// if (!empty($_POST)) {
-// 	$_POST = array_map('trim', $_POST);
-// }
+//Check for POST
+if (!empty($_POST)) {
+	$_POST = array_map('trim', $_POST);
+}
 
 // POST: Sanitize, set action
-if (isset($_POST)) {
+if (!empty($_POST)) {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 
 	if ((strlen($zip) != 5)) {
