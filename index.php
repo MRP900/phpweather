@@ -6,7 +6,7 @@ if (!isset($zip)) {
 // Us as default country
 $country = 'us';
 // Array to hold errors
-$errors = null;
+$error = null;
 
 // Check for POST
 if (!empty($_POST)) {
@@ -98,10 +98,10 @@ if (isset($_POST)) {
 			</form>
 
 			<?php
-			if ($errors != null) {
+			if ($error != null) {
 				echo '<p class="alert-danger">' . $error . '</p>';
 			} elseif (!empty($_POST) && (!empty($zip))) {
-				echo '<h3>Displaying Current Weather for Zip Code: ' . $zip . '</h3>';
+				echo '<h3>Current Weather for Zip Code: ' . $zip . '</h3>';
 				echo '<p>Town: ' . $town . '</p>';
 				echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
 				echo '<p>Humidity: ' . $humidity . '</p>';
