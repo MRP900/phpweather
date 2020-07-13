@@ -9,9 +9,9 @@ $country = 'us';
 $error = null;
 
 // Check for POST
-if (!empty($_POST)) {
-	$_POST = array_map('trim', $_POST);
-}
+// if (!empty($_POST)) {
+// 	$_POST = array_map('trim', $_POST);
+// }
 
 // POST: Sanitize, set action
 if (isset($_POST)) {
@@ -62,8 +62,6 @@ if (isset($_POST)) {
 		}
 		
 	}
-} else {
-	$error = null;
 }
 
 ?>
