@@ -1,7 +1,19 @@
 <?php
+// Reset upon browser refresh
+if (!isset($_SESSION)) {
+	session_start();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$_SESSION['postdata'] = $_POST;
+	unset($_POST);
+	header("Location:.");
+	exit;
+}
+
 // Default location data
 if (!isset($zip)) {
-	$zip = null;
+$zip = null;
 }
 // Us as default country
 $country = 'us';
@@ -10,58 +22,58 @@ $error = null;
 
 //Check for POST
 if (!empty($_POST)) {
-	$_POST = array_map('trim', $_POST);
+$_POST = array_map('trim', $_POST);
 }
 
 // POST: Sanitize, set action
 if (!empty($_POST)) {
-	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
+$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 
-	if ((strlen($zip) != 5)) {
-		$error = "Error: Invalid Zip Code";
-	} else {
-		// Build API url
-		$api_key = $_ENV["api_key"];
-		$api_url = 'api.openweathermap.org/data/2.5/weather' .
-			'?zip=' . $zip . ',' .
-			$country . '&appid=' . $api_key;
+if ((strlen($zip) != 5)) {
+$error = "Error: Invalid Zip Code";
+} else {
+// Build API url
+$api_key = $_ENV["api_key"];
+$api_url = 'api.openweathermap.org/data/2.5/weather' .
+'?zip=' . $zip . ',' .
+$country . '&appid=' . $api_key;
 
-		// Initialize cURL
-		$ch = curl_init();
+// Initialize cURL
+$ch = curl_init();
 
-		// Set Options
-		// URL Request
-		curl_setopt($ch, CURLOPT_URL, $api_url);
+// Set Options
+// URL Request
+curl_setopt($ch, CURLOPT_URL, $api_url);
 
-		// Return instead of outputting directly
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// Return instead of outputting directly
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-		// Whether to include the header in the output. Set to false here
-		curl_setopt($ch, CURLOPT_HEADER, 0);
+// Whether to include the header in the output. Set to false here
+curl_setopt($ch, CURLOPT_HEADER, 0);
 
-		// 3 Execute the request and fetch the response, check for errors
-		$output = curl_exec($ch);
+// 3 Execute the request and fetch the response, check for errors
+$output = curl_exec($ch);
 
-		if (curl_errno($ch)) {
-			$error = 'Request Error: ' . curl_error($ch);
-		} else {
-			$weather = json_decode($output, true);
-			// 4. Close and free up the curl handle
-			curl_close($ch);
+if (curl_errno($ch)) {
+$error = 'Request Error: ' . curl_error($ch);
+} else {
+$weather = json_decode($output, true);
+// 4. Close and free up the curl handle
+curl_close($ch);
 
-			// Get values from JSON string, convert kelvin to Fahrenheit
-			$temp_k = $weather["main"]["temp"];
-			$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
+// Get values from JSON string, convert kelvin to Fahrenheit
+$temp_k = $weather["main"]["temp"];
+$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 
-			// Town
-			$town = $weather["name"];
-			// Humidity
-			$humidity = $weather["main"]["humidity"];
-			// Wind
-			$wind = $weather["wind"]["speed"];
-		}
-		
-	}
+// Town
+$town = $weather["name"];
+// Humidity
+$humidity = $weather["main"]["humidity"];
+// Wind
+$wind = $weather["wind"]["speed"];
+}
+
+}
 }
 
 ?>
@@ -89,7 +101,7 @@ if (!empty($_POST)) {
 		<div class="col-lg mx-auto text-center">
 			<h2 id="title">Weather Lookup</h2>
 			<form class="form-group align-content-center" action="." method="post">
-				
+
 				<input id="input-zip" type="text" name="zip" placeholder="Enter a 5 digit Zip Code">
 
 				<div class="form-group">
@@ -101,8 +113,8 @@ if (!empty($_POST)) {
 			if ($error != null) {
 				echo '<p class="alert-danger">' . $error . '</p>';
 			} elseif (!empty($_POST) && (!empty($zip))) {
-				echo '<h3>Current Weather for Zip Code: ' . $zip . '</h3>';
-				echo '<p>Town: ' . $town . '</p>';
+				echo '<h3>Current Weather for ' . $town . ', ' . $zip . '</h3>';
+				// echo '<p>Town: ' . $town . '</p>';
 				echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
 				echo '<p>Humidity: ' . $humidity . '</p>';
 				echo '<p>Wind: ' . $wind . '</p>';
