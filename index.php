@@ -1,16 +1,4 @@
 <?php
-// Reset upon browser refresh
-if (!isset($_SESSION)) {
-	session_start();
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$_SESSION['postdata'] = $_POST;
-	unset($_POST);
-	header("Location:.");
-	exit;
-}
-
 // Default location data
 if (!isset($zip)) {
 $zip = null;
