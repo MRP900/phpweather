@@ -109,7 +109,7 @@ if (!empty($_POST)) {
 				echo '<p>Wind: ' . $wind . '</p>';
 
 				// Debugging
-				// echo '<p>' . $output . '</p>';
+				echo '<p>' . $output . '</p>';
 			}
 			?>
 		</div>
