@@ -19,8 +19,9 @@ if (!empty($_POST)) {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 
 	if ((strlen($zip) < 5)) {
-	$error = "Error: Invalid Zip Code";
-	} else {
+	$error = "Error: Zip code is too Short";
+	// Regex to check for letters
+	} elseif ($zip) {
 		// Build API url
 		$api_key = $_ENV["api_key"];
 		$api_url = 'api.openweathermap.org/data/2.5/weather' .
