@@ -19,10 +19,13 @@
             text-align: center;
             color: darkgreen;
         }
+        .sub-btn {
+            color: white;
+        }
     </style>
-    <script>
+    <!-- <script>
         window.onload = () => {
             document.getElementById('input-zip').focus().select();
         }
-    </script>
+    </script> -->
 </head>
