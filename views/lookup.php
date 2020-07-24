@@ -10,7 +10,7 @@
 
                 <input id="input-zip" type="text" name="zip" placeholder="Enter Zip Code">
 
-                <div class="form-group align-content-center">
+                <div>
                     <input type="hidden" name="action" value="show-weather">
                     <input class="btn btn-dark" type="submit" value="Display Weather" class="btn btn-outline-dark">
                 </div>
