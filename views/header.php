@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>php weather</title>
 
-    
+
 
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <style>
         body {
-        background-color: rgb(125, 206, 243) !important;
+            background-color: rgb(125, 206, 243) !important;
+        }
+
+        #input-zip::placeholder {
+            text-align: center;
+            color: darkgreen;
         }
     </style>
     <script>
