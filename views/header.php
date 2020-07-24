@@ -19,9 +19,7 @@
             text-align: center;
             color: darkgreen;
         }
-        .sub-btn {
-            color: white;
-        }
+        
     </style>
     <!-- <script>
         window.onload = () => {
