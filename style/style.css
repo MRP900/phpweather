@@ -2,9 +2,7 @@ body {
     background-color: rgb(125, 206, 243) !important; 
 }
 
-.btn {
-    margin: 2em 1em 2em 0;
-}
+
 
 #title {
     margin-top: 2em;
@@ -12,6 +10,10 @@ body {
 
 #input-zip {
     margin-top: 1em;
+}
+
+.btn {
+    margin: 2em 1em 2em 0;
 }
 
 #input-zip::placeholder {
