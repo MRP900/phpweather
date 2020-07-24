@@ -1,18 +1,5 @@
 body {
-    background-color: rgb(114, 202, 202);
-}
-
-caption {
-    caption-side: top;
-}
-
-td, th {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.table > tbody > tr >td {
-    vertical-align: middle;
+    background-color: rgb(125, 206, 243);
 }
 
 .btn {
