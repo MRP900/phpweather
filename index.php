@@ -22,8 +22,8 @@ if (isset($_POST['action'])) {
 // Redisplay page with results
 if ($action === 'show-weather') {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
-	
-	get_weather($zip);
+	$weather = array();
+	$weather = get_weather($zip);
 
 	include 'views/lookup.php';
 }
