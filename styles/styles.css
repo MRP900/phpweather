@@ -1,3 +1,7 @@
+body {
+    background-color: cyan;
+}
+
 caption {
     caption-side: top;
 }
@@ -21,5 +25,9 @@ td, th {
 
 #input-zip {
     margin-top: 1em;
+}
+
+#input-zip::placeholder {
     text-align: center;
+    color: darkgreen;
 }
