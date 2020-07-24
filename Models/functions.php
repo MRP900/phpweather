@@ -29,11 +29,11 @@ function get_weather ($zip) {
 	// 3 Execute the request and fetch the response, check for errors
 	$output = curl_exec($ch);
 
-	if (curl_errno($ch)) {
-	$error = 'Request Error: ' . curl_error($ch);
-	return $error;
-	} 
-	else {
+	// if (curl_errno($ch)) {
+	// $error = 'Request Error: ' . curl_error($ch);
+	// return $error;
+	// } 
+	// else {
 	$weather = json_decode($output, true);
 	// 4. Close and free up the curl handle
 	curl_close($ch);
@@ -51,9 +51,11 @@ function get_weather ($zip) {
 	// Wind
 	$wind = $weather["wind"]["speed"];
 	$weather['wind'] = $wind;
-
+	
+	debug_to_console($weather);
+	
 	return $weather;
-	}
+	// }
 }
 
 function debug_to_console($data)
@@ -65,4 +67,4 @@ function debug_to_console($data)
 	echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
-debug_to_console($weather);
+
