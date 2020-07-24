@@ -45,7 +45,7 @@ function get_weather ($zip) {
 		// Get values from JSON string, convert kelvin to Fahrenheit
 		$temp_k = $weather["main"]["temp"];
 		$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
-
+		$weather['tempf'] = $temp_f;
 		// Town
 		$town = $weather["name"];
 		$weather['town'] = $town; 
@@ -58,4 +58,5 @@ function get_weather ($zip) {
 		}
 
 	}
+	return $weather;
 }

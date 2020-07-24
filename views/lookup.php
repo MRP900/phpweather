@@ -18,11 +18,11 @@
             if ($error != null) {
                 echo '<p class="alert-danger">' . $error . '</p>';
             } elseif (!empty($_POST) && (!empty($zip))) {
-                echo '<h3>Current Weather for ' . $town . ', ' . $zip . '</h3>';
+                echo '<h3>Current Weather for ' . $weather['town'] . ', ' . $zip . '</h3>';
 
-                echo '<p>Temperature: ' . $temp_f . '&#8457;</p>';
-                echo '<p>Humidity: ' . $humidity . '</p>';
-                echo '<p>Wind: ' . $wind . '</p>';
+                echo '<p>Temperature: ' . $weather['tempf'] . '&#8457;</p>';
+                echo '<p>Humidity: ' . $weather['humidity'] . '</p>';
+                echo '<p>Wind: ' . $weather['wind'] . '</p>';
 
                 // Debugging
                 echo '<p>' . $output . '</p>';
