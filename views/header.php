@@ -7,9 +7,9 @@
     <title>php weather</title>
 
 
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
 
-    <link rel="stylesheet" href="styles/styles.css">
-    
     <!-- <style>
         body {
             background-color: rgb(125, 206, 243) !important;
