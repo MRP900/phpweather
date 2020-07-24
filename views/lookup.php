@@ -1,3 +1,5 @@
+<?php include 'header.php'; ?>
+
 <body>
     <div class="container">
         <div class="col-lg mx-auto text-center">
@@ -7,6 +9,7 @@
                 <input id="input-zip" type="text" name="zip" placeholder="Enter Zip Code">
 
                 <div class="form-group">
+                    <input type="hidden" name="action" value="show-weather">
                     <input type="submit" value="Display Weather" class="btn btn-outline-dark">
                 </div>
             </form>
@@ -28,3 +31,5 @@
         </div>
     </div>
 </body>
+
+<?php include 'footer.php'; ?>

@@ -1,7 +1,9 @@
 <?php
 
 function get_weather ($zip) {
-	
+	// Array of weather attributes
+	$weather = array();
+
 	// Us as default country
 	$country = 'us';
 	// Array to hold errors
@@ -46,10 +48,13 @@ function get_weather ($zip) {
 
 		// Town
 		$town = $weather["name"];
+		$weather['town'] = $town; 
 		// Humidity
 		$humidity = $weather["main"]["humidity"];
+		$weather['humidity'] = $humidity;
 		// Wind
 		$wind = $weather["wind"]["speed"];
+		$weather['wind'] = $wind;
 		}
 
 	}
