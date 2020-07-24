@@ -1,5 +1,5 @@
 body {
-    color: rgb(125, 206, 243);
+    background-color: rgb(125, 206, 243) !important; 
 }
 
 .btn {
@@ -15,6 +15,6 @@ body {
 }
 
 #input-zip::placeholder {
-    text-align: center;
-    color: darkgreen;
+    text-align: center !important;
+    color: darkgreen !important;
 }
