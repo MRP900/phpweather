@@ -1,11 +1,6 @@
 <?php
 require 'Models/functions.php';
 
-// // Default location data
-// if (!isset($zip)) {
-// 	$zip = null;
-// }
-
 //Check for POST
 if (!empty($_POST)) {
 $_POST = array_map('trim', $_POST);
