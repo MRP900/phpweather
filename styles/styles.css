@@ -15,6 +15,6 @@ body {
 }
 
 #input-zip::placeholder {
-    text-align: center !important;
-    color: darkgreen !important;
+    text-align: center;
+    color: darkgreen;
 }
