@@ -9,8 +9,8 @@
 
 
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <style>
+    
+    <!-- <style>
         body {
             background-color: rgb(125, 206, 243) !important;
         }
@@ -19,8 +19,7 @@
             text-align: center;
             color: darkgreen;
         }
-        
-    </style>
+    </style> -->
     <!-- <script>
         window.onload = () => {
             document.getElementById('input-zip').focus().select();
