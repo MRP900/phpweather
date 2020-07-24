@@ -1,10 +1,10 @@
 <?php
 require 'Models/functions.php';
 
-// Default location data
-if (!isset($zip)) {
-	$zip = null;
-}
+// // Default location data
+// if (!isset($zip)) {
+// 	$zip = null;
+// }
 
 //Check for POST
 if (!empty($_POST)) {
@@ -31,8 +31,7 @@ if ($action === 'show-weather') {
 // Display Default Page
 else if ($action === 'lookup') {
 	include 'views/lookup.php';
-}
-			
+}			
 ?>
 
 
