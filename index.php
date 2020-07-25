@@ -17,7 +17,7 @@ if (isset($_POST['action'])) {
 // Redisplay page with results
 if ($action === 'show-weather') {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
-	$weather = array();
+	// $weather = array();
 	$error = null;
 
 	if (preg_match('\d{5}', $zip)) {
