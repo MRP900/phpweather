@@ -8,7 +8,7 @@
             <h2 id="title">Weather Zip</h2>
             <form class="form-group align-content-center" action="." method="post">
 
-                <input id="input-zip" type="text" name="zip" placeholder="Enter Zip Code">
+                <input id="input-zip" type="text" name="zip" placeholder="Enter Zip Code Here">
 
                 <div>
                     <input type="hidden" name="action" value="show-weather">

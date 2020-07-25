@@ -12,14 +12,19 @@ body {
     margin-top: 1em;
     border-radius: .25em;
     text-align: center;
+    
 }
 
-.btn {
-    margin: 2em auto;
-    border-radius: .25em;
+input:focus::placeholder {
+  color: transparent;
 }
 
 #input-zip::placeholder {
     text-align: center;
     
+}
+
+.btn {
+    margin: 2em auto;
+    border-radius: .25em;
 }
