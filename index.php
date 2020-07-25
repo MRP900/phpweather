@@ -20,8 +20,7 @@ if ($action === 'show-weather') {
 	$weather = array();
 	$error = "";
 
-
-
+	// Zip Code Validation
 	if (validate_zip_code($zip)) {
 		$weather = get_weather($zip);
 	}
@@ -31,9 +30,6 @@ if ($action === 'show-weather') {
 	if (empty($error) && ($weather["cod"]) === "404") {
 		$error = "City not found";
 	}
-	
-	
-
 	include 'views/lookup.php';
 }
 
