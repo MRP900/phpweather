@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="style/bootstrap.min.css">
     <link rel="stylesheet" href="style/style.css">
     
-    <script>
+    <!-- <script>
         window.onload = () => {
             document.getElementById('input-zip').focus().select();
         }
-    </script>
+    </script> -->
 </head>
