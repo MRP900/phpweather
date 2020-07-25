@@ -19,7 +19,7 @@ if ($action === 'show-weather') {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 	$weather = array();
 	$error = "";
-	// $state = "";
+	$state = "";
 
 	// Zip Code Validation
 	if (validate_zip_code($zip)) {
