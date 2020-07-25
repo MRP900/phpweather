@@ -20,19 +20,20 @@ if ($action === 'show-weather') {
 	$weather = array();
 	$error = "";
 
-	$result = get_weather($zip);
 
-	// Validate Zip Code
-	if (preg_match('/^\d{5}$/', $zip)) {
+
+	if (validate_zip_code($zip)) {
 		$weather = get_weather($zip);
 	}
 	else {
 		$error = "Error: Zip Code must be five numbers!";
 	}
-	if ($result["cod"] === "404") {
+	if (empty($error) && ($weather["cod"]) === "404") {
 		$error = "City not found";
 	}
 	
+	
+
 	include 'views/lookup.php';
 }
 
