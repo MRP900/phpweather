@@ -113,7 +113,7 @@ function get_state($zip) {
 		array(48001, 49971, "MI", "Michigan"),
 		array(55001, 56763, "MN", "Minnesota"),
 		array(63001, 65899, "MO", "Missouri"),
-		array(388601, 39776, "MS", "Mississippi"),
+		array(38601, 39776, "MS", "Mississippi"),
 		array(71233, 71233, "MS", "Mississipi"),
 		array(59901, 59937, "MT", "Montana"),
 		array(27006, 28909, "NC", "North Carolina"),
@@ -152,12 +152,10 @@ function get_state($zip) {
 		array(53001, 54990, "WI", "Wisconsin"),
 		array(24701, 26886, "WV", "West Virginia"),
 		array(82001, 83128, "WY", "Wyoming")
-		// array(, , "", ""),
-		
 	);
 
-
 	if (validate_zip_code($zip)) {
+		$result = "";
 		$zip = intval($zip);
 
 		foreach ($states as $state) {
@@ -166,10 +164,11 @@ function get_state($zip) {
 			$stateAbbreviation = $state[2];
 			//$stateFullName = $state[3];
 			
-			if ($zip >= $minZip && $zip <= $maxZip) {
-				return $stateAbbreviation;
+			if (($zip >= $minZip) && ($zip <= $maxZip)) {
+				$result = $stateAbbreviation;
 			}
 		}
+		return $result;
 	}
 	return "Invalid Zip Code";
 }
