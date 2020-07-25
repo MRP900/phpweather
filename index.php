@@ -22,12 +22,7 @@ if ($action === 'show-weather') {
 
 	$result = get_weather($zip);
 
-	// if (strlen($zip) < 5) {
-	// 	$error = "Error: Zip Code must be five numbers";
-	// }
-	// else {
-	// 	$weather = get_weather($zip);
-	// }
+	// Validate Zip Code
 	if ($result["cod"] === "404") {
 		$error = "City not found";
 	}
@@ -37,7 +32,6 @@ if ($action === 'show-weather') {
 	else {
 		$error = "Error: Zip Code must be five numbers!";
 	}
-	
 	
 	include 'views/lookup.php';
 }
