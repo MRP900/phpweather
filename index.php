@@ -26,7 +26,7 @@ if ($action === 'show-weather') {
 		$weather = get_weather($zip);
 	}
 	else {
-		$error = "Error: Zip Code must be five numbers!"
+		$error = "Error: Zip Code must be five numbers!";
 	}
 	
 	
