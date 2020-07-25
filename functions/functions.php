@@ -158,7 +158,7 @@ function get_state($zip) {
 
 
 	if (validate_zip_code($zip)) {
-		$zCode = intval($zip);
+		$zip = intval($zip);
 
 		foreach ($states as $state) {
 			$minZip = $state[0];
@@ -166,7 +166,7 @@ function get_state($zip) {
 			$stateAbbreviation = $state[2];
 			//$stateFullName = $state[3];
 			
-			if ($zCode >= $minZip && $zCode <= $maxZip) {
+			if ($zip >= $minZip && $zip <= $maxZip) {
 				return $stateAbbreviation;
 			}
 		}
