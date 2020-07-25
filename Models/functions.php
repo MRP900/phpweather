@@ -143,19 +143,21 @@ function get_state($zCode) {
 		array(98001, 99403, "WA", "Washington"),
 		array(53001, 54990, "WI", "Wisconsin"),
 		array(24701, 26886, "WV", "West Virginia"),
-		array(82001, 83128, "WY", "Wyoming"),
+		array(82001, 83128, "WY", "Wyoming")
 		// array(, , "", ""),
 		
 	);
 
 
-	if (validate_zip_code($zCode)) {
+	if (validate_zip_code($zCode) === true) {
+		$zCode = intval($zCode);
+
 		foreach ($states as $state) {
 			$minZip = $state[0];
 			$maxZip = $state[1];
 			$stateAbbreviation = $state[2];
 			//$stateFullName = $state[3];
-
+			
 			if ($zCode >= $minZip && $zCode <= $maxZip) {
 				return $stateAbbreviation;
 			}
