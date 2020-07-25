@@ -17,15 +17,9 @@ if (isset($_POST['action'])) {
 // Redisplay page with results
 if ($action === 'show-weather') {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
-	// $weather = array();
-	$error = null;
-
-	if (preg_match('\d{5}', $zip)) {
-		$weather = get_weather($zip);
-	}
-	else {
-		$error = "Error: Zip Code must be five numbers.";
-	}
+	$weather = array();
+	$weather = get_weather($zip);
+	
 	include 'views/lookup.php';
 }
 

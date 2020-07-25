@@ -15,14 +15,17 @@
             </form>
 
             <?php
-            if ($error) {
-                echo '<p class="alert-danger">'. $error . '</p>';
-            }
-            elseif (!empty($weather)) {
+            // if ($error != null) {
+            //     echo '<p class="alert-danger">' . $error . '</p>';} 
+            if (!empty($_POST) && (!empty($zip))) {
                 echo '<h3>Current Weather for ' . $weather['town'] . ', ' . $zip . '</h3>';
+
                 echo '<p>Temperature: ' . $weather['tempf'] . '&#8457;</p>';
                 echo '<p>Humidity: ' . $weather['humidity'] . '</p>';
                 echo '<p>Wind: ' . $weather['wind'] . '</p>';
+
+                // Debugging
+                echo '<p>' . $output . '</p>';
             }
             ?>
         </div>
