@@ -26,7 +26,7 @@ if ($action === 'show-weather') {
 	// else {
 	// 	$weather = get_weather($zip);
 	// }
-	
+	// if (get_weather($zip) === )
 	if (preg_match('/^\d{5}$/', $zip)) {
 		$weather = get_weather($zip);
 	}

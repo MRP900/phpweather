@@ -55,6 +55,7 @@ function get_weather ($zip) {
 	$weather['wind'] = $wind;
 
 	debug_to_console($weather);
+	debug_to_console($output);
 	
 	return $weather;
 }
