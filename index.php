@@ -1,5 +1,5 @@
 <?php
-require 'models/functions.php';
+require 'functions/functions.php';
 
 //Check for POST
 if (!empty($_POST)) {
