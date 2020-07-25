@@ -1,17 +1,17 @@
 <?php
 
 function get_weather ($zip) {
-	$errors = array();
+	$error = null;
 	// Array of weather attributes
 	$weather = array();
-
 	// Us as default country
 	$country = 'us';
-
 	// Validate Zip Code
-	$test = valid_zip($zip);
-
-	if ($test === 'valid') {
+	if (!preg_match('\d{5}', $zip)) {
+		$error = "Error: Zip Code must be five numbers.";
+		return $error;
+	}
+	else {
 		// Build API url
 		$api_key = $_ENV["api_key"];
 		$api_url = 'api.openweathermap.org/data/2.5/weather' .
@@ -58,14 +58,13 @@ function get_weather ($zip) {
 		$wind = $weather["wind"]["speed"];
 		$weather['wind'] = $wind;
 
+		debug_to_console($weather);
+		// debug_to_console($weather);
 		// debug_to_console($weather);
 
 		return $weather;
 	}
-	else {
-		$errors = $test;
-		return $errors;
-	}
+}
 	
 	// // Build API url
 	// $api_key = $_ENV["api_key"];
@@ -116,10 +115,9 @@ function get_weather ($zip) {
 	
 	// return $weather;
 	// }
-}
 
-function debug_to_console($data)
-{
+
+function debug_to_console ($data) {
 	$output = $data;
 	if (is_array($output))
 		$output = implode(',', $output);
@@ -128,27 +126,20 @@ function debug_to_console($data)
 }
 
 // Test validity of zip: length, characters
-function valid_zip($zip) {
-	$zip_errors = array();
+// function valid_zip($zip) {
+// 	$zip_errors = array();
 
-	// Check length
-	if (strlen($zip) < 5) {
-		array_push($zip_errors, "Zip Code is too short"); 
-	} 
-	if (strlen($zip) > 5) {
-		array_push($zip_errors, "Zip Code is too long");
-	}
-	// Check for only non-numbers
-	if (!preg_match('\d{5}', $zip)) {
-		array_push($zip_errors, "Zip Code contains non-numeric characters");
-	}
-	// Return error array
-	if (!empty($zip_errors)) {
-		return $zip_errors;
-	}
-	else {
-		return 'valid';
-	}
-}
+	
+// 	if (!preg_match('\d{5}', $zip)) {
+// 		array_push($zip_errors, "Error: Zip Code must be five numbers.");
+// 	}
+// 	// Return error array
+// 	if (!empty($zip_errors)) {
+// 		return $zip_errors;
+// 	}
+// 	else {
+// 		return 'valid';
+// 	}
+// }
 
 

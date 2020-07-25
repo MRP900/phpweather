@@ -18,16 +18,15 @@ if (isset($_POST['action'])) {
 if ($action === 'show-weather') {
 	$zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 	$weather = array();
-	$validation_errors = array();
+	$val_error = null;
 	$results = get_weather($zip);
 
 	if ($results == $errors) {
-		$validation_errors = $results;
+		$val_error = $results;
 	}
-	elseif ($results == $weather) {
+	else {
 		$weather = $results;
 	}
-
 	include 'views/lookup.php';
 }
 
