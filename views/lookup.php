@@ -15,8 +15,8 @@
             </form>
 
             <?php
-            // if ($error != null) {
-            //     echo '<p class="alert-danger">' . $error . '</p>';} 
+            if ($error != null) {
+                echo '<p class="alert-danger">' . $error . '</p>';} 
             if (!empty($_POST) && (!empty($zip))) {
                 echo '<h3>Current Weather for ' . $weather['town'] . ', ' . $zip . '</h3>';
 
