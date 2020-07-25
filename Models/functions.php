@@ -150,7 +150,16 @@ function get_state($zCode) {
 
 
 	if (validate_zip_code($zCode)) {
-		
+		foreach ($states as $state) {
+			$minZip = $state[0];
+			$maxZip = $state[1];
+			$stateAbbreviation = $state[2];
+			//$stateFullName = $state[3];
+
+			if ($zCode >= $minZip && $zCode <= $maxZip) {
+				return $stateAbbreviation;
+			}
+		}
 	}
 	return "Invalid Zip Code";
 }
