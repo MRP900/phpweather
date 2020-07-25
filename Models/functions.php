@@ -69,6 +69,7 @@ function debug_to_console ($data) {
 	echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
+
 function get_state($zCode) {
 	$states = array(
 		array(99501, 99950, "AK", "Alaska"),
@@ -76,7 +77,7 @@ function get_state($zCode) {
 		array(71601, 72959, "AR", "Arkansas"),
 		array(85001, 86556, "AZ", "Arizona"),
 		array(90001, 96162, "CA", "California"),
-		array(80001, 81658, "CO", "Colorada"),
+		array(80001, 81658, "CO", "Colorado"),
 		array(06001, 06389, "CT", "Connecticut"),
 		array(06401, 06928, "CT", "Connecticut"),
 		array(20001, 20039, "DC", "District of Columbia"),
