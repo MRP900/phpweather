@@ -15,6 +15,7 @@ body {
 
 .btn {
     margin: 2em auto;
+    border-radius: .2em;
 }
 
 #input-zip::placeholder {
