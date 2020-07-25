@@ -56,7 +56,6 @@ function get_weather ($zip) {
 
 	debug_to_console($weather);
 	
-
 	return $weather;
 }
 	

@@ -20,21 +20,20 @@ if ($action === 'show-weather') {
 	$weather = array();
 	$error = "";
 
-	if (strlen($zip) < 5) {
-		$error = "Error: Zip Code must be five numbers!";
-		
-	}
-	else {
-		$weather = get_weather($zip);
-	}
-	
-
-	// if (preg_match('\d{5}', $zip)) {
-	// 	$weather = get_weather($zip);
+	// if (strlen($zip) < 5) {
+	// 	$error = "Error: Zip Code must be five numbers";
 	// }
 	// else {
-	// 	$error = "Error: Zip Code must be five numbers!";
+	// 	$weather = get_weather($zip);
 	// }
+	
+
+	if (preg_match('[0-9]{5}', $zip)) {
+		$weather = get_weather($zip);
+	}
+	else {
+		$error = "Error: Zip Code must be five numbers!";
+	}
 	
 	
 	include 'views/lookup.php';
