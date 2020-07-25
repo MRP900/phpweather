@@ -10,12 +10,12 @@ body {
 
 #input-zip {
     margin-top: 1em;
-    border-radius: .2em;
+    border-radius: .25em;
 }
 
 .btn {
     margin: 2em auto;
-    border-radius: .2em;
+    border-radius: .25em;
 }
 
 #input-zip::placeholder {
