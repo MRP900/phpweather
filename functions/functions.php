@@ -78,7 +78,7 @@ function debug_to_console ($data) {
 
   
 function get_state($zip) {
-	require 'arrays.php';
+	include 'arrays.php';
 
 	foreach ($states as list($a, $b, $c)) {
 		if (($zip >= $a) && ($zip <= $b)) {
