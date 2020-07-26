@@ -24,7 +24,7 @@ if ($action === 'show-weather') {
 	// Zip Code Validation
 	if (validate_zip_code($zip)) {
 		$weather = get_weather($zip);
-		// $state = get_state($zip);
+		$state = get_state($zip, $states);
 	}
 	else {
 		$error = "Error: Zip Code must be five numbers!";
