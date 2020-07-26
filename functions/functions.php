@@ -135,7 +135,7 @@ function get_state($zip) {
 		// [00900, 00999, "PR", "Puerto Rico"],
 		// [02801, 02940, "RI", "Rhodi Island"],
 		// [29001, 29948, "SC", "South Carolina"],
-		// [57001, 57799, "SD", "South Dakota"],
+		[57001, 57799, "SD", "South Dakota"],
 		// [37010, 38589, "TN", "Tennessee"],
 		// [73301, 73301, "TX", "Texas"],
 		// [75001, 75501, "TX", "Texas"],
