@@ -159,10 +159,16 @@ function get_state($zip) {
 	// 		return $c;
 	// 	}
 	// }
-	foreach ($states as $state) {
-		if (($zip >= $state[0]) && ($zip <= $state[1])) {
-			return $state[2];
-		}
+	// foreach ($states as $state) {
+	// 	if (($zip >= $state[0]) && ($zip <= $state[1])) {
+	// 		return $state[2];
+	// 	}
+	// }
+	
+	
+	for ($x = 0; $x <= sizeof($states); $x++) {
+		if (($zip >= $states[$x][0]) && ($zip <= $states[$x][1])) {
+			return $states[0][2];
 	}
 	return "Error: State not found";
 }
