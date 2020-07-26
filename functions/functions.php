@@ -158,11 +158,8 @@ function get_state($zip) {
 		if (($zip >= $a) && ($zip <= $b)) {
 			return $c;
 		}
-		else {
-			return "Error: State not found";
-		}
 	}
-	
+	return "Error: State not found";
 }
 
 
