@@ -153,7 +153,7 @@ $states = array(
 );
   
 function get_state($zip, $states) {
-	
+	$zip = intval($zip);
 	foreach ($states as $state) {
 		$minZip = $state[0];
 		$maxZip = $state[1];
