@@ -154,9 +154,14 @@ function get_state($zip) {
 		// [82001, 83128, "WY", "Wyoming"]
 	];
 
-	foreach ($states as list($a, $b, $c, $d)) {
-		if (($zip >= $a) && ($zip <= $b)) {
-			return $c;
+	// foreach ($states as list($a, $b, $c, $d)) {
+	// 	if (($zip >= $a) && ($zip <= $b)) {
+	// 		return $c;
+	// 	}
+	// }
+	foreach ($states as $state) {
+		if (($zip >= $state[0]) && ($zip <= $state[1])) {
+			return $state[3];
 		}
 	}
 	return "Error: State not found";
