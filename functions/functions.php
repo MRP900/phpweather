@@ -169,8 +169,7 @@ function get_state($zip) {
 	for ($x = 0; $x <= sizeof($states); $x++) {
 		if (($zip >= $states[$x][0]) && ($zip <= $states[$x][1])) {
 			return $states[0][2];
-	}
+		}
+	}	
 	return "Error: State not found";
 }
-
-
