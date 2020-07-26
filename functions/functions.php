@@ -136,22 +136,22 @@ function get_state($zip) {
 		// [02801, 02940, "RI", "Rhodi Island"],
 		// [29001, 29948, "SC", "South Carolina"],
 		[57001, 57799, "SD", "South Dakota"],
-		// [37010, 38589, "TN", "Tennessee"],
-		// [73301, 73301, "TX", "Texas"],
-		// [75001, 75501, "TX", "Texas"],
-		// [75503, 79999, "TX", "Texas"],
-		// [88510, 88589, "TX", "Texas"],
-		// [84001, 84784, "UT", "Utah"],
-		// [20040, 20041, "VA", "Virginia"],
-		// [20040, 20167, "VA", "Virginia"],
-		// [20042, 20042, "VA", "Virginia"],
-		// [22001, 24658, "VA", "Virginia"],
-		// [05001, 05495, "VT", "Vermont"],
-		// [05601, 05907, "VT", "Vermont"],
-		// [98001, 99403, "WA", "Washington"],
-		// [53001, 54990, "WI", "Wisconsin"],
-		// [24701, 26886, "WV", "West Virginia"],
-		// [82001, 83128, "WY", "Wyoming"]
+		[37010, 38589, "TN", "Tennessee"],
+		[73301, 73301, "TX", "Texas"],
+		[75001, 75501, "TX", "Texas"],
+		[75503, 79999, "TX", "Texas"],
+		[88510, 88589, "TX", "Texas"],
+		[84001, 84784, "UT", "Utah"],
+		[20040, 20041, "VA", "Virginia"],
+		[20040, 20167, "VA", "Virginia"],
+		[20042, 20042, "VA", "Virginia"],
+		[22001, 24658, "VA", "Virginia"],
+		[05001, 05495, "VT", "Vermont"],
+		[05601, 05907, "VT", "Vermont"],
+		[98001, 99403, "WA", "Washington"],
+		[53001, 54990, "WI", "Wisconsin"],
+		[24701, 26886, "WV", "West Virginia"],
+		[82001, 83128, "WY", "Wyoming"]
 	];
 
 	// foreach ($states as list($a, $b, $c, $d)) {
@@ -161,7 +161,7 @@ function get_state($zip) {
 	// }
 	foreach ($states as $state) {
 		if (($zip >= $state[0]) && ($zip <= $state[1])) {
-			return $state[3];
+			return $state[2];
 		}
 	}
 	return "Error: State not found";
