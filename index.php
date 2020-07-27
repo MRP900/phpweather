@@ -1,5 +1,6 @@
 <?php
 require 'functions/functions.php';
+require 'functions/arrays.php';
 
 //Check for POST
 if (!empty($_POST)) {
