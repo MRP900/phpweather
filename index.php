@@ -1,6 +1,6 @@
 <?php
-require 'functions/functions.php';
-require 'functions/arrays.php';
+include 'functions/functions.php';
+
 
 //Check for POST
 if (!empty($_POST)) {
