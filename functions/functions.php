@@ -171,5 +171,5 @@ function get_state($zip) {
 	// 		return $states[0][2];
 	// 	}
 	// }	
-	return "Error: State not found";
+	return "{Error: State not found}";
 }

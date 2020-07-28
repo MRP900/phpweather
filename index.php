@@ -28,7 +28,7 @@ if ($action === 'show-weather') {
 		$state = get_state($zip);
 	}
 	else {
-		$error = "Error: Zip Code must be five numbers!";
+		$error = "Error: Zip Code must be five numbers";
 	}
 	if (empty($error) && ($weather["cod"]) === "404") {
 		$error = "City not found";
