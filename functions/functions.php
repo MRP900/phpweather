@@ -39,6 +39,7 @@ function get_weather ($zip) {
 	// 4. Close and free up the curl handle
 	curl_close($ch);
 
+	
 	// Get values from JSON string
 	// Convert kelvin to Fahrenheit
 	$temp_k = $weather["main"]["temp"];
