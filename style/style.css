@@ -33,6 +33,10 @@ ul {
     padding: 0;
 }
 
+li {
+    margin: .25em;
+}
+
 #recent {
     margin-bottom: 1em;
 }

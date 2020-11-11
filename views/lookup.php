@@ -14,13 +14,14 @@
                 </div>
             </form>
 
+            <div><h2>Recent</h2></div>
             <ul id="recent">
                 <?php foreach ($recentSearches as $recent) : ?> 
                     <li>
                         <form action="." method="post">
                             <input type="hidden" name="action" value="show-weather">
                             <input id="input-zip" type="hidden" name="zip" value="<?php echo $recent["zip"]; ?>"> 
-                            <input id="input-zip" type="submit" value="<?php echo $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"]; ?>">     
+                            <input class="btn btn-dark" class="btn btn-outline-dark" id="input-zip" type="submit" value="<?php echo $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"]; ?>">     
                         </form>
                     </li>
                 <?php endforeach; ?>

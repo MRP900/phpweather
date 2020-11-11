@@ -194,3 +194,25 @@ function  get_top_results() {
 	
 	return $results;
 }
+
+function add_search($city, $state, $zip) {
+	// Connect to database
+    $user = "root";
+    $pass = "";
+	$host = "localhost";
+	$dbName = "weather";
+    $dsn = "mysql:host=".$host.";dbname=".$dbName;
+
+	$db = new PDO($dsn, $user, $pass);
+	
+	// insert search result into db
+	$stmt = $db->prepare("INSERT INTO searches 
+							(city, state, zip)
+						VALUES 
+							(:city, :state, :zip)");
+	$stmt->bindValue(':city', $city);
+	$stmt->bindValue(':state', $state);
+	$stmt->bindValue(':zip', $zip);
+    $stmt->execute();
+	$stmt->closeCursor();
+}
