@@ -14,6 +14,12 @@
                 </div>
             </form>
 
+            <ul>
+                <?php foreach ($recentSearches as $recent) : ?> 
+                    <li><?php echo $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"]; ?></li>
+                <?php endforeach; ?>
+            </ul>
+            
             <?php
             if (!empty($error)) {
                 echo '<p class="alert-danger">' . $error . '</p>';

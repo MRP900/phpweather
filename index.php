@@ -1,6 +1,9 @@
 <?php
 include 'functions/functions.php';
 
+// Code to get last 10 searches from db goes here
+$recentSearches = get_top_results();
+
 //Check for POST
 if (!empty($_POST)) {
 	$_POST = array_map('trim', $_POST);
@@ -23,6 +26,8 @@ if ($action === 'show-weather') {
 	if (validate_zip_code($zip)) {
 		$weather = get_weather($zip);
 		$state = get_state($zip);
+
+		// Code to add search to db goes here
 	}
 	else {
 		$error = "Error: Zip Code must be five numbers";

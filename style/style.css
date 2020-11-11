@@ -26,3 +26,9 @@ input:focus::placeholder {
     margin: 2em auto;
     border-radius: .25em;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

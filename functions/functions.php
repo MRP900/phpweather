@@ -9,7 +9,19 @@ function get_weather ($zip) {
 	// Validate Zip Code
 	
 	// Build API url
-	$api_key = $_ENV["api_key"];
+	$api_key = "";
+	// Get API key from server's $_ENV if online or use
+	// JSON file if offline
+	if (isset($_ENV["api_key"])) 
+	{
+		$api_key = $_ENV["api_key"];
+	} else {
+		$jsondata = file_get_contents("./apiKey.json");
+
+		$array = json_decode($jsondata,true);
+		$api_key = $array["api"];
+	}
+	
 	$api_url = 'api.openweathermap.org/data/2.5/weather' .
 		'?zip=' . $zip . ',' .
 		$country . '&appid=' . $api_key;
@@ -55,8 +67,8 @@ function get_weather ($zip) {
 	$wind = $weather["wind"]["speed"];
 	$weather['wind'] = $wind;
 
-	debug_to_console($weather);
-	debug_to_console($output);
+	// debug_to_console($weather);
+	// debug_to_console($output);
 	
 	return $weather;
 }
@@ -162,4 +174,23 @@ function get_state($zip) {
 	}
 	
 	return "{Error: State not found}";
+}
+
+function  get_top_results() {
+	// Connect to database
+    $user = "root";
+    $pass = "";
+	$host = "localhost";
+	$dbName = "weather";
+    $dsn = "mysql:host=".$host.";dbname=".$dbName;
+
+    $db = new PDO($dsn, $user, $pass);
+
+	// Get results
+    $stmt = $db->prepare("SELECT city, state, zip FROM searches");
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+	$stmt->closeCursor();
+	
+	return $results;
 }
