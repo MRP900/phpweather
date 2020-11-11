@@ -14,9 +14,15 @@
                 </div>
             </form>
 
-            <ul>
+            <ul id="recent">
                 <?php foreach ($recentSearches as $recent) : ?> 
-                    <li><?php echo $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"]; ?></li>
+                    <li>
+                        <form action="." method="post">
+                            <input type="hidden" name="action" value="show-weather">
+                            <input id="input-zip" type="hidden" name="zip" value="<?php echo $recent["zip"]; ?>"> 
+                            <input id="input-zip" type="submit" value="<?php echo $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"]; ?>">     
+                        </form>
+                    </li>
                 <?php endforeach; ?>
             </ul>
             
