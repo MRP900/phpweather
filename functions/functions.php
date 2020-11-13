@@ -1,76 +1,92 @@
 <?php
 
 function get_weather ($zip) {
-	// $error = null;
-	// Array of weather attributes
+	// Array of weather attributes converted from json
 	$weather = array();
+	// Array of results and/or errors returned by function
+	$results = array();
 	// Us as default country
 	$country = 'us';
 	// Validate Zip Code
-	
-	// Build API url
-	$api_key = "";
-	// Get API key from server's $_ENV if online or use
-	// JSON file if offline
-	if (isset($_ENV["api_key"])) 
-	{
-		$api_key = $_ENV["api_key"];
-	} else {
-		$jsondata = file_get_contents("./apiKey.json");
+	// Zip Code Validation
+	if (validate_zip_code($zip)) {
+		// Build API url
+		$api_key = "";
+		// Get API key from server's $_ENV if online or use
+		// JSON file if offline
+		if (isset($_ENV["api_key"])) 
+		{
+			$api_key = $_ENV["api_key"];
+		} else {
+			$jsondata = file_get_contents("./apiKey.json");
 
-		$array = json_decode($jsondata,true);
-		$api_key = $array["api"];
+			$array = json_decode($jsondata,true);
+			$api_key = $array["api"];
+		}
+		
+		$api_url = 'api.openweathermap.org/data/2.5/weather' .
+			'?zip=' . $zip . ',' .
+			$country . '&appid=' . $api_key;
+
+		// Initialize cURL
+		$ch = curl_init();
+
+		// Set Options
+		// URL Request
+		curl_setopt($ch, CURLOPT_URL, $api_url);
+
+		// Return instead of outputting directly
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		// Whether to include the header in the output. Set to false here
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+
+		// 3 Execute the request and fetch the response, check for errors
+		$api_output = curl_exec($ch);
+		// if (curl_errno($ch)) {
+		// $error = 'Request Error: ' . curl_error($ch);
+		// return $error;
+		// } 
+		// else {
+		$weather = json_decode($api_output, true);
+		// 4. Close and free up the curl handle
+		curl_close($ch);
+
+		
+		// Get values from JSON string
+		// Convert kelvin to Fahrenheit
+		if($weather["cod"] !== 404) {
+			$temp_k = $weather["main"]["temp"];
+			$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
+			$results['tempf'] = $temp_f;
+			
+			// Humidity
+			$results['humidity'] = $weather["main"]["humidity"];
+			// Wind
+			$results['wind'] = $weather["wind"]["speed"];
+
+			// Location into results
+			$results['state'] = get_state($zip);
+			$results['city'] = $weather['name'];
+			$results['zip'] = $zip;
+
+			// Search added to db
+			add_search($results['city'], $results['state'], $zip);
+			
+			// ****DEBUGGING****
+			// debug_to_console($weather);
+			// debug_to_console($results);
+		} else {
+			$results['error'] = "Zip Code not found";
+			return $results;
+		}
+	}
+	else {
+		$results['error'] = "Error: Zip Code must be five numbers";
+		return $results;
 	}
 	
-	$api_url = 'api.openweathermap.org/data/2.5/weather' .
-		'?zip=' . $zip . ',' .
-		$country . '&appid=' . $api_key;
-
-	// Initialize cURL
-	$ch = curl_init();
-
-	// Set Options
-	// URL Request
-	curl_setopt($ch, CURLOPT_URL, $api_url);
-
-	// Return instead of outputting directly
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-	// Whether to include the header in the output. Set to false here
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-
-	// 3 Execute the request and fetch the response, check for errors
-	$output = curl_exec($ch);
-
-	// if (curl_errno($ch)) {
-	// $error = 'Request Error: ' . curl_error($ch);
-	// return $error;
-	// } 
-	// else {
-	$weather = json_decode($output, true);
-	// 4. Close and free up the curl handle
-	curl_close($ch);
-
-	
-	// Get values from JSON string
-	// Convert kelvin to Fahrenheit
-	$temp_k = $weather["main"]["temp"];
-	$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
-	$weather['tempf'] = $temp_f;
-	// Town
-	$town = $weather["name"];
-	$weather['town'] = $town;
-	// Humidity
-	$humidity = $weather["main"]["humidity"];
-	$weather['humidity'] = $humidity;
-	// Wind
-	$wind = $weather["wind"]["speed"];
-	$weather['wind'] = $wind;
-
-	// debug_to_console($weather);
-	// debug_to_console($output);
-	
-	return $weather;
+	return $results;
 }
 
 function validate_zip_code($zipCode)
@@ -166,13 +182,11 @@ function get_state($zip) {
 		['24701', '26886', "WV"],
 		['82001', '83128', "WY"]
 	];
-
 	foreach ($states as list($a, $b, $c)) {
 		if (($zip >= $a) && ($zip <= $b)) {
 			return $c;
 		}
 	}
-	
 	return "{Error: State not found}";
 }
 
@@ -187,7 +201,11 @@ function  get_top_results() {
     $db = new PDO($dsn, $user, $pass);
 
 	// Get results
-    $stmt = $db->prepare("SELECT city, state, zip FROM searches");
+    $stmt = $db->prepare("SELECT city, state, zip, date
+						  FROM searches
+						  
+						  ORDER BY date DESC
+						  LIMIT 5");
     $stmt->execute();
     $results = $stmt->fetchAll();
 	$stmt->closeCursor();

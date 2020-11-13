@@ -28,14 +28,14 @@
             </ul>
             
             <?php
-            if (!empty($error)) {
-                echo '<p class="alert-danger">' . $error . '</p>';
+            if (!empty($weatherOut['error'])) {
+                echo '<p class="alert-danger">' . $weatherOut['error'] . '</p>';
             } 
-            elseif (!empty($weather)) {
-                echo '<h3>Current Weather for ' . $weather['town'] . ', '. $state . ' ' . $zip . '</h3>';
-                echo '<p>Temperature: ' . $weather['tempf'] . '&#8457;</p>';
-                echo '<p>Humidity: ' . $weather['humidity'] . '</p>';
-                echo '<p>Wind: ' . $weather['wind'] . '</p>';
+            elseif (!empty($weatherOut)) {
+                echo '<h3>Current Weather for ' . $weatherOut['city'] . ', '. $weatherOut['state'] . ' ' . $weatherOut['zip'] . '</h3>';
+                echo '<p>Temperature: ' . $weatherOut['tempf'] . '&#8457;</p>';
+                echo '<p>Humidity: ' . $weatherOut['humidity'] . '</p>';
+                echo '<p>Wind: ' . $weatherOut['wind'] . '</p>';
             }
             ?>
         </div>
