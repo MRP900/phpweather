@@ -1,9 +1,9 @@
 <?php include 'header.php'; ?>
 
-<body>
+
     <div class="container">
         <div class="col-lg mx-auto text-center">
-            <h2 id="title">Weather Zip</h2>
+            
             <form class="form-group align-content-center" action="." method="post">
 
                 <input id="input-zip" type="text" name="zip" placeholder="Enter Zip Code Here">
@@ -14,28 +14,37 @@
                 </div>
             </form>
 
-            <div><h2>Recent</h2></div>
-            <ul id="recent">
-                <?php foreach ($recentSearches as $recent) : ?> 
-                    <li>
-                        <form action="." method="post">
-                            <input type="hidden" name="action" value="show-weather">
-                            <input id="input-zip" type="hidden" name="zip" value="<?php echo $recent["zip"]; ?>"> 
-                            <input class="btn btn-dark" class="btn btn-outline-dark" id="input-zip" type="submit" value="<?php echo $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"]; ?>">     
-                        </form>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <?php
+                if(!empty($recentSearches)){
+                    echo '<form id="recent-select" action="." method="post">';
+                    echo '<select name="zip" onchange="this.form.submit()">';
+                    echo '<option id="recent-header">' . "Recent Searches" . '</option>';
+                    foreach ($recentSearches as $recent) {
+                        echo '<option value="' . $recent["zip"] . '">' .
+                        $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"] .   
+                         
+                        '</option>';
+                    }
+                    echo "</select>";
+                    // echo '<input type="hidden" name="zip">';
+                    echo '<input type="hidden" name="action" value="show-weather">';
+                    echo '<noscript><input type="submit" value="Submit"></noscript>';
+                    echo '</form>';
+                }
+            ?>
             
             <?php
             if (!empty($weatherOut['error'])) {
-                echo '<p class="alert-danger">' . $weatherOut['error'] . '</p>';
+                echo '<p class="alert-danger" id="error">' . $weatherOut['error'] . '</p>';
             } 
             elseif (!empty($weatherOut)) {
-                echo '<h3>Current Weather for ' . $weatherOut['city'] . ', '. $weatherOut['state'] . ' ' . $weatherOut['zip'] . '</h3>';
-                echo '<p>Temperature: ' . $weatherOut['tempf'] . '&#8457;</p>';
-                echo '<p>Humidity: ' . $weatherOut['humidity'] . '</p>';
-                echo '<p>Wind: ' . $weatherOut['wind'] . '</p>';
+                echo '<h4>Current Weather for ' . $weatherOut['city'] . ', '. $weatherOut['state'] . ' ' . 
+                $weatherOut['zip'] . '</h4>';
+                echo '<div id="results-container">';
+                echo '<div class="weather-elements"><p><i class="fas fa-temperature-high" alt="temperature"></i> ' . $weatherOut['tempf'] . '&#8457;</p></div>';
+                echo '<div class="weather-elements"><p class="weather-elements"><i class="fas fa-tint"></i> ' . $weatherOut['humidity'] . '</p></div>';
+                echo '<div class="weather-elements"><p class="weather-elements"><i class="fas fa-wind"></i> ' . $weatherOut['wind'] . '</p></div>';
+                echo '</div>';
             }
             ?>
         </div>

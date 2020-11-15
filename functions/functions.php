@@ -19,7 +19,6 @@ function get_weather ($zip) {
 			$api_key = $_ENV["api_key"];
 		} else {
 			$jsondata = file_get_contents("./apiKey.json");
-
 			$array = json_decode($jsondata,true);
 			$api_key = $array["api"];
 		}
@@ -48,6 +47,7 @@ function get_weather ($zip) {
 		// return $error;
 		// } 
 		// else {
+		// Decode API result into associative array
 		$weather = json_decode($api_output, true);
 		// 4. Close and free up the curl handle
 		curl_close($ch);
@@ -55,7 +55,7 @@ function get_weather ($zip) {
 		
 		// Get values from JSON string
 		// Convert kelvin to Fahrenheit
-		if($weather["cod"] !== 404) {
+		if($weather["cod"] === 200) {
 			$temp_k = $weather["main"]["temp"];
 			$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 			$results['tempf'] = $temp_f;
@@ -73,9 +73,6 @@ function get_weather ($zip) {
 			// Search added to db
 			add_search($results['city'], $results['state'], $zip);
 			
-			// ****DEBUGGING****
-			// debug_to_console($weather);
-			// debug_to_console($results);
 		} else {
 			$results['error'] = "Zip Code not found";
 			return $results;
@@ -155,6 +152,7 @@ function get_state($zip) {
 		['88901', '89883', "NV"],
 		['06390', '06390', "NY"],
 		['10001', '14975', "NY"],
+		['00501', '00501', "NY"],
 		['43001', '45999', "OH"],
 		['73001', '73199', "OK"],
 		['73401', '74966', "OK"],
@@ -201,9 +199,9 @@ function  get_top_results() {
     $db = new PDO($dsn, $user, $pass);
 
 	// Get results
-    $stmt = $db->prepare("SELECT city, state, zip, date
+    $stmt = $db->prepare("SELECT city, state, zip, MAX(date) as date
 						  FROM searches
-						  
+						  GROUP BY zip
 						  ORDER BY date DESC
 						  LIMIT 5");
     $stmt->execute();
