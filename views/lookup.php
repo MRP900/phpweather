@@ -15,14 +15,13 @@
             </form>
 
             <?php
-                if(!empty($recentSearches)){
+                if(!isset($recentSearches["success"])){
                     echo '<form id="recent-select" action="." method="post">';
                     echo '<select name="zip" onchange="this.form.submit()">';
                     echo '<option id="recent-header">' . "Recent Searches" . '</option>';
                     foreach ($recentSearches as $recent) {
                         echo '<option value="' . $recent["zip"] . '">' .
                         $recent["city"] . " " . $recent["state"] . ", " . $recent["zip"] .   
-                         
                         '</option>';
                     }
                     echo "</select>";

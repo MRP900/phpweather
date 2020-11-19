@@ -7,22 +7,27 @@ function get_weather ($zip) {
 	$results = array();
 	// Us as default country
 	$country = 'us';
-	// Validate Zip Code
+	
 	// Zip Code Validation
 	if (validate_zip_code($zip)) {
 		// Build API url
 		$api_key = "";
-		// Get API key from server's $_ENV if online or use
-		// JSON file if offline
+		// Get API key from server's $_ENV or use
+		// JSON file
 		if (isset($_ENV["api_key"])) 
 		{
 			$api_key = $_ENV["api_key"];
-		} else {
-			$jsondata = file_get_contents("./apiKey.json");
-			$array = json_decode($jsondata,true);
-			$api_key = $array["api"];
+		} 
+		elseif (file_exists("./apiKey.json")) {
+				$jsondata = file_get_contents("./apiKey.json");
+				$array = json_decode($jsondata,true);
+				$api_key = $array["api"];
+		} 
+		else {
+			$results['error'] = "Search unavailable";
+			return $results;		
 		}
-		
+		// Assemble request
 		$api_url = 'api.openweathermap.org/data/2.5/weather' .
 			'?zip=' . $zip . ',' .
 			$country . '&appid=' . $api_key;
@@ -34,28 +39,31 @@ function get_weather ($zip) {
 		// URL Request
 		curl_setopt($ch, CURLOPT_URL, $api_url);
 
-		// Return instead of outputting directly
+		// Set to return value
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-		// Whether to include the header in the output. Set to false here
+		// Set - no header
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 
-		// 3 Execute the request and fetch the response, check for errors
+		// Execute request, fetch the response, check for errors
 		$api_output = curl_exec($ch);
-		// if (curl_errno($ch)) {
-		// $error = 'Request Error: ' . curl_error($ch);
-		// return $error;
-		// } 
-		// else {
+		
 		// Decode API result into associative array
 		$weather = json_decode($api_output, true);
-		// 4. Close and free up the curl handle
-		curl_close($ch);
 
-		
+		if (curl_errno($ch)) {
+			$error = 'Request Error: ' . curl_error($ch);
+			$results['error'] = $error;
+			return $results;
+		}
+		else {
+		// Close curl
+		curl_close($ch);
+		}
 		// Get values from JSON string
 		// Convert kelvin to Fahrenheit
 		if($weather["cod"] === 200) {
+			// Covert kelvin to farenheit
 			$temp_k = $weather["main"]["temp"];
 			$temp_f = round(($temp_k - 273.15) * 9 / 5 + 32, 1);
 			$results['tempf'] = $temp_f;
@@ -70,10 +78,17 @@ function get_weather ($zip) {
 			$results['city'] = $weather['name'];
 			$results['zip'] = $zip;
 
-			// Search added to db
-			add_search($results['city'], $results['state'], $zip);
+			// Add search to db
+			try {
+				add_search($results['city'], $results['state'], $zip);
+			} catch (PDOException $e) {
+				$results['error'] = $e->getMessage();
+				return $results;
+			}
 			
-		} else {
+			
+		} 
+		else {
 			$results['error'] = "Zip Code not found";
 			return $results;
 		}
@@ -185,9 +200,10 @@ function get_state($zip) {
 			return $c;
 		}
 	}
-	return "{Error: State not found}";
+	return "Error: State not found";
 }
 
+// Return list of user searches - Top 5
 function  get_top_results() {
 	// Connect to database
     $user = "root";
@@ -196,21 +212,30 @@ function  get_top_results() {
 	$dbName = "weather";
     $dsn = "mysql:host=".$host.";dbname=".$dbName;
 
-    $db = new PDO($dsn, $user, $pass);
+	try {
+		$db = new PDO($dsn, $user, $pass);
 
-	// Get results
-    $stmt = $db->prepare("SELECT city, state, zip, MAX(date) as date
-						  FROM searches
-						  GROUP BY zip
-						  ORDER BY date DESC
-						  LIMIT 5");
-    $stmt->execute();
-    $results = $stmt->fetchAll();
-	$stmt->closeCursor();
-	
-	return $results;
+		// Get results
+		$stmt = $db->prepare("SELECT city, state, zip, MAX(date) as date
+							  FROM searches
+							  GROUP BY zip
+							  ORDER BY date DESC
+							  LIMIT 5");
+		$stmt->execute();
+		$results = $stmt->fetchAll();
+		$stmt->closeCursor();
+		
+		return $results;
+	}
+	catch (PDOException $e) {
+		$results['error'] = "Could not return top results, " . $e;
+		$results['success'] = false;
+		return $results;
+	}
+    
 }
 
+// Add user searches to db
 function add_search($city, $state, $zip) {
 	// Connect to database
     $user = "root";
@@ -219,16 +244,22 @@ function add_search($city, $state, $zip) {
 	$dbName = "weather";
     $dsn = "mysql:host=".$host.";dbname=".$dbName;
 
-	$db = new PDO($dsn, $user, $pass);
+	try {
+		$db = new PDO($dsn, $user, $pass);
 	
-	// insert search result into db
-	$stmt = $db->prepare("INSERT INTO searches 
-							(city, state, zip)
-						VALUES 
-							(:city, :state, :zip)");
-	$stmt->bindValue(':city', $city);
-	$stmt->bindValue(':state', $state);
-	$stmt->bindValue(':zip', $zip);
-    $stmt->execute();
-	$stmt->closeCursor();
+		// insert search result into db
+		$stmt = $db->prepare("INSERT INTO searches 
+								(city, state, zip)
+							VALUES 
+								(:city, :state, :zip)");
+		$stmt->bindValue(':city', $city);
+		$stmt->bindValue(':state', $state);
+		$stmt->bindValue(':zip', $zip);
+		$stmt->execute();
+		$stmt->closeCursor();
+	}
+	catch (PDOException $e) {
+
+	}
+	
 }
